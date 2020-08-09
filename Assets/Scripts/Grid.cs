@@ -49,66 +49,47 @@ public class Grid  :MonoBehaviour
         {
             for (int j = 0; j < gridview.GetLength(1); j++)
             {
-                if(Buff[i,j]=="X")
+                if (Buff[i, j] == "X")
                 {// change it randomly later 
-                   int num = _random.Next(0, 2);
+                    int num = _random.Next(0, 2);
 
-                    if(num==1)
+                    if (num == 1)
                     {
+                        GameObjectCreater("A", i, j);
                         
-                        // GameObject helloword = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                        GameObject helloword = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                        helloword.AddComponent<BoxCollider>();
-                        helloword.AddComponent<TMPro.TextMeshPro>();
-                        helloword.GetComponent<TMPro.TextMeshPro>().text ="A";
-                        helloword.GetComponent<TMPro.TextMeshPro>().fontSize = 5f;
-                        helloword.transform.position = GetPostion(i, j);
-                        
-                        helloword.GetComponent<TMPro.TextMeshPro>().margin =new Vector4(9.613768f, 2.16469f, 9.772934f, 2.101021f);
 
-                                          }
+                    }
+
+              
                     else if (num == 2)
-                        {
-                        //GameObject helloword = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                        GameObject helloword = new GameObject();
-                        helloword.AddComponent<BoxCollider>(); 
-                        helloword.AddComponent<TMPro.TextMeshPro>();
-                        helloword.GetComponent<TMPro.TextMeshPro>().text = "B";
-                        //helloword.GetComponent<RawImage>().texture = Object2.Image;
-                        helloword.GetComponent<TMPro.TextMeshPro>().fontSize = 5f;
-                        helloword.transform.position = GetPostion(i, j);
-                        helloword.GetComponent<TMPro.TextMeshPro>().margin = new Vector4(9.613768f, 2.16469f, 9.772934f, 2.101021f);
+                    {
 
+                        GameObjectCreater("B", i, j);
+                        
                     }
                     else
                     {
 
-
-                        //GameObject helloword = GameObject.CreatePrimitive(PrimitiveType.Quad);
-                        GameObject helloword = new GameObject();
-                        helloword.AddComponent<BoxCollider>();
-                        helloword.AddComponent<TMPro.TextMeshPro>();
-                        helloword.GetComponent<TMPro.TextMeshPro>().text = "C";
-
-                        var ren = helloword.GetComponent<TMPro.TextMeshPro>().renderer;
-
-                        // helloword.GetComponent<RawImage>().texture = Object3.Image;
-                        helloword.GetComponent<TMPro.TextMeshPro>().fontSize = 5f;
-                        //- (int)(ren.bounds.size.x * 2)
-                        helloword.transform.position = GetPostion(i, j);
-                     helloword.GetComponent<TMPro.TextMeshPro>().margin =new Vector4(9.613768f, 2.16469f, 9.772934f, 2.101021f);
-
+                        GameObjectCreater("C", i, j);
+                        
 
 
                     }
 
+                }
+                
+                else
+                {
+                    GameObjectCreater("", i, j);
+
+
 
                 }
 
-              
-                
+
+
                 //  UtilsClass.CreateWorldText(gridview[i, j].ToString(), null,GetPostion(i,j),20, Color.red,TextAnchor.MiddleCenter);
-               
+
             }
 
         }
@@ -117,7 +98,19 @@ public class Grid  :MonoBehaviour
 
 
 
+    public void GameObjectCreater(string text, int i, int j )
+    {
 
+        GameObject helloword = new GameObject();
+        helloword.AddComponent<BoxCollider>();
+        helloword.AddComponent<TMPro.TextMeshPro>();
+        helloword.GetComponent<TMPro.TextMeshPro>().text = text;
+        helloword.GetComponent<TMPro.TextMeshPro>().fontSize = 5f;
+        helloword.transform.position = GetPostion(i, j);
+        helloword.GetComponent<TMPro.TextMeshPro>().margin = new Vector4(9.613768f, 2.16469f, 9.772934f, 2.101021f);
+        helloword.name = "TextObject:" + i.ToString() + ":" + j.ToString();
+
+    }
 
 
     public Vector3 GetPostion(int x , int y )
