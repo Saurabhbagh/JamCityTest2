@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CodeMonkey.Utils; // Using code monkey asset for proper grid creation
 using System;
 using UnityEngine.UI;
 

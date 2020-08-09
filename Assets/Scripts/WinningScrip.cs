@@ -31,6 +31,7 @@ public class WinningScrip : MonoBehaviour
 
     private void MenuMenuMethod()
     {
+        GlobalRecords.GlobalRecordHolder.Instance.LocalScore = 0;
         SceneManager.LoadScene("Main Menu");
     }
 }

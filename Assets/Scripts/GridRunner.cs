@@ -21,6 +21,7 @@ public class GridRunner : MonoBehaviour
     public int two = 0;
 
     public WinningScrip script;
+    public LoserScript script2;
     RaycastHit hit;
     GameObject objectHit;
     GameObject Nexthitobject;
@@ -32,7 +33,7 @@ public class GridRunner : MonoBehaviour
 
     int localScore = 0;
     bool emptyGrid;
-
+    public AudioSource voice;
     List<bool> Values= new List<bool>();
     // Start is called before the first frame update
 
@@ -45,7 +46,8 @@ public class GridRunner : MonoBehaviour
 
     public void Start()
     {
-        if(text==null)
+        voice = GetComponent<AudioSource>();
+        if (text==null)
         {
             text = GlobalRecords.GlobalRecordHolder.Instance.Text;
 
@@ -86,7 +88,7 @@ public class GridRunner : MonoBehaviour
         Debug.Log("update count"+count);
 
 
-        if (Values == null )
+        if (Values.Count<1 )
         {
             for (int p = 0; p < breadth; p++)
             {
@@ -115,27 +117,28 @@ public class GridRunner : MonoBehaviour
             }
 
         }
-/*
-        if (Values.Contains(false))
+
+        if (Values.Contains(false)|| Values.Count==0)
         {
             //stange not complete;
+            emptyGrid = false;
             Values.Clear();
 
         }
         else
         {
-
+            emptyGrid = true;
 
             OnCompletion();
             //you have completed the game. 
             
             this.gameObject.SetActive(false);
 
-          //  script.RunWinning();
+           script.RunWinning();
             //SceneManager.LoadScene("Main Menu");
         }
        
-    */
+    
 
 
     }
@@ -153,6 +156,7 @@ public class GridRunner : MonoBehaviour
                 if (objectHit.GetComponent<TMPro.TextMeshPro>().text == "")
                     return;
                 objectHit.GetComponent<TMPro.TextMeshPro>().fontSize = 10;
+                StartCoroutine(playAudio());
                 count = count + 1;
                 isSelected = true;
             }
@@ -169,6 +173,7 @@ public class GridRunner : MonoBehaviour
                     return;
                 // Do something with the object that was hit by the raycast.
                 Nexthitobject.GetComponent<TMPro.TextMeshPro>().fontSize = 10;
+                StartCoroutine(playAudio());
                 count = count + 1;
             }
            
@@ -366,9 +371,22 @@ public class GridRunner : MonoBehaviour
 
     private void MenuMenuMethod()
     {
-        SceneManager.LoadScene("Main Menu");
-    }
 
+        if (emptyGrid == false)
+        {
+            GlobalRecords.GlobalRecordHolder.Instance.LocalScore = 0;
+            this.gameObject.SetActive(false);
+            script2.LosingScript();
+
+        }
+        else
+        {
+            SceneManager.LoadScene("Main Menu");
+
+        }
+        
+    }
+    //Hint not enabled.
     private void HintMethod()
     {
         throw new NotImplementedException();
@@ -376,12 +394,25 @@ public class GridRunner : MonoBehaviour
 
     private void QuitMethod()
     {
+        GlobalRecords.GlobalRecordHolder.Instance.LocalScore = 0;
+        if (emptyGrid==false)
+        {
+
+            script2.LosingScript();
+
+        }
         Application.Quit();
     }
 
 
+    IEnumerator playAudio()
+    {
+              
+        voice.Play();
+        yield return new WaitForSeconds(voice.clip.length);
+       
+    }
 
-   
 
     void OnCompletion()
     {
