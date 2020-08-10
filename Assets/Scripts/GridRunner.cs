@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
-
+using System.Linq;
 
 public class GridRunner : MonoBehaviour
 {
@@ -118,9 +118,27 @@ public class GridRunner : MonoBehaviour
 
         }
 
-        if (Values.Contains(false)|| Values.Count==0)
+        if (Values.Contains(false)|| Values.Count==0 )
         {
-            //stange not complete;
+            //stage not complete or just has one value left ;
+            var list = Values;
+            var q = from x in list
+                    group x by x into g
+                    let count = g.Count()
+                    orderby count descending
+                    select new { Value = g.Key, Count = count };
+            List<int> hello = new List<int>();
+            foreach (var x in q)
+            {
+                hello.Add(x.Count);
+            }
+
+            if (hello[1]==1)
+            {
+                MenuMenuMethod();
+                    return;
+            }
+            hello.Clear();
             emptyGrid = false;
             Values.Clear();
 
@@ -142,7 +160,9 @@ public class GridRunner : MonoBehaviour
 
 
     }
-
+    /// <summary>
+    /// Twco clicks on the Alphabets
+    /// </summary>
     public void  MyClick()
     {
         Ray ray = camera.ScreenPointToRay(Input.mousePosition);
@@ -185,6 +205,10 @@ public class GridRunner : MonoBehaviour
         }
         
     }
+
+    /// <summary>
+    /// Algorithm logic 
+    /// </summary>
     void AlgoLogic()
     {
         //Get the position of the fist hit
@@ -313,7 +337,9 @@ public class GridRunner : MonoBehaviour
 
     }
 
-
+    /// <summary>
+    /// calculates teh penalty score.
+    /// </summary>
     void Penalty()
     {
 
@@ -336,7 +362,9 @@ public class GridRunner : MonoBehaviour
 
     }
 
-
+    /// <summary>
+    /// Calculates the score added.
+    /// </summary>
     void ScoreAdded()
     {
 
@@ -389,6 +417,7 @@ public class GridRunner : MonoBehaviour
     //Hint not enabled.
     private void HintMethod()
     {
+        //check for the nearest  or closest 
         throw new NotImplementedException();
     }
 

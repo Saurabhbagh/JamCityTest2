@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
-
+/// <summary>
+/// setting up the grid for game display
+/// </summary>
 public class Grid  :MonoBehaviour
 {
     public int width;

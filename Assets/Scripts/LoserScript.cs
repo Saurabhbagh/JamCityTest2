@@ -25,7 +25,9 @@ public class LoserScript : MonoBehaviour
         GlobalRecords.GlobalRecordHolder.Instance.LocalScore = 0;
         SceneManager.LoadScene("Main Menu");
     }
-    // Update is called once per frame
+    /// <summary>
+    /// When the user loses.
+    /// </summary>
    public void LosingScript()
     {
 

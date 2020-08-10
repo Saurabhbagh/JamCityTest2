@@ -19,6 +19,10 @@ public class WinningScrip : MonoBehaviour
 
 
     }
+
+  /// <summary>
+  /// When the user wins
+  /// </summary>
     public void RunWinning()
         
     {

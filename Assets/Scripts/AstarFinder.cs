@@ -13,7 +13,14 @@ public class AstarFinder
     public List<Node> Path = new List<Node>();
 
     public bool isReachable; 
-
+    /// <summary>
+    /// A* finder algo.
+    /// </summary>
+    /// <param name="Grid"></param>
+    /// <param name="startx"></param>
+    /// <param name="starty"></param>
+    /// <param name="endx"></param>
+    /// <param name="endy"></param>
     public void Finder( int[,] Grid ,int startx, int starty, int endx, int endy)
     {
         //grid setup
@@ -141,10 +148,14 @@ public class AstarFinder
         NodeCalulator(Path, isReachable);
     }
 
+    /// <summary>
+    ///  to calculate the number of turns and is rechable 
+    /// </summary>
+    /// <param name="Path"></param>
+    /// <param name="isReachable"></param>
 
-    //to calculate the number of turns and is rechable 
 
-        void NodeCalulator(List<Node> Path, bool isReachable)
+    void NodeCalulator(List<Node> Path, bool isReachable)
         {
         if (!isReachable)
         {
@@ -229,7 +240,12 @@ public class AstarFinder
 
 
 
-
+    /// <summary>
+    /// calculate the Heuristic value
+    /// </summary>
+    /// <param name="a"></param>
+    /// <param name="b"></param>
+    /// <returns></returns>
 
 
     public float Heuristic(Node a, Node b)
@@ -240,7 +256,9 @@ public class AstarFinder
     }
 }
 
-
+/// <summary>
+/// Node properties for the  objects in the  grid. 
+/// </summary>
 
 public class Node
 {
@@ -271,7 +289,12 @@ public class Node
         this.neighbour = new List<Node>();
         this.wall = obstacle;
     }
-
+    /// <summary>
+    /// setting up the neighbours. 
+    /// </summary>
+    /// <param name="X"></param>
+    /// <param name="Y"></param>
+    /// <param name="grid"></param>
     public void Neighbours(int X, int Y,Node[,] grid)
     {
 
